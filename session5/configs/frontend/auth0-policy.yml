@@ -1,14 +1,15 @@
-apiVersion: "authentication.istio.io/v1alpha1"
-kind: "Policy"
+apiVersion: authentication.istio.io/v1alpha1
+kind: Policy
 metadata:
-  name: frontend-policy
+  name: ingressgateway
+  namespace: istio-system
 spec:
   targets:
-    - name: frontend
+    - name: istio-ingressgateway
   peers:
     - mtls: {}
   origins:
     - jwt:
-        issuer: "https://dev-e2bwzo-l.eu.auth0.com/"
-        jwksUri: "https://dev-e2bwzo-l.eu.auth0.com/.well-known/jwks.json"
+        issuer: "https://sergey-onofreichuk.auth0.com/"
+        jwksUri: "https://sergey-onofreichuk.auth0.com/.well-known/jwks.json"
   principalBinding: USE_ORIGIN
