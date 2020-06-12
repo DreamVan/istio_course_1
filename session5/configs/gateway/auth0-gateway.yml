@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: course-istio
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - course-frontend-gateway
+  http:
+    - match:
+        - uri:
+            exact: /login
+        - uri:
+            exact: /logout
+        - uri:
+            exact: /callback
+        - uri:
+            prefix: /frontend-catalog/api/v1/
+      rewrite:
+        uri: /api/v1/
+      route:
+        - destination:
+            host: frontend
+            port:
+              number: 8080

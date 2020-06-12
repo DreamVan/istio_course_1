@@ -1,0 +1,24 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: books
+spec:
+  hosts:
+    - books
+  http:
+    - fault:
+        delay:
+          fixedDelay: 7s
+          percent: 100
+      match:
+        - headers:
+            end-user:
+              exact: Sverdlov Ivan
+      route:
+        - destination:
+            host: books
+            subset: v1
+    - route:
+        - destination:
+            host: books
+            subset: v1
